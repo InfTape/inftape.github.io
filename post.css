@@ -142,3 +142,31 @@
         font-size: 0.8rem;
     }
 }
+
+/* Dark mode styles for code blocks */
+[data-theme="dark"] .post-content code {
+    background-color: #3a3a3a;
+    color: #e0e0e0;
+}
+
+[data-theme="dark"] .post-content pre {
+    background-color: #1e1e1e;
+    border-color: #3a3a3a;
+}
+
+[data-theme="dark"] .post-content pre code {
+    background-color: transparent;
+    color: #d4d4d4;
+}
+
+[data-theme="dark"] .post-content h2 {
+    border-bottom-color: #3a3a3a;
+}
+
+[data-theme="dark"] .post-content a {
+    text-decoration-color: #555;
+}
+
+[data-theme="dark"] .post-content a:hover {
+    text-decoration-color: var(--color-link);
+}
