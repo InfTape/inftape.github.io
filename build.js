@@ -173,13 +173,13 @@ function generateIndexHTML(posts) {
             <h2 class="section-title">Links</h2>
             <ul class="link-list">
                 <li class="link-item">
-                    GitHub: <a href="https://github.com/samzhang">@samzhang</a>
+                    GitHub: <a href="https://github.com/InfTape">@InfTape</a>
                 </li>
                 <li class="link-item">
-                    Twitter: <a href="https://twitter.com/samzhang">@samzhang</a>
+                    Twitter: <a href="https://twitter.com/InfTape">@InfTape</a>
                 </li>
                 <li class="link-item">
-                    Email: <a href="mailto:sam@example.com">sam@example.com</a>
+                    Email: <a href="mailto:sam@inftape.com">sam@inftape.com</a>
                 </li>
             </ul>
         </section>
