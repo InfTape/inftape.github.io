@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Understanding callbacks, promises, and async/await in JavaScript">
+    <title>JavaScript Async Patterns Explained - samzhang</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Inter:wght@400;500&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../post.css">
+</head>
+<body>
+    <main class="container">
+        <nav class="breadcrumb">
+            <a href="../index.html">← Back to home</a>
+        </nav>
+
+        <article class="post">
+            <header class="post-header">
+                <h1 class="post-title">JavaScript Async Patterns Explained</h1>
+                <time class="post-meta">2025-12-28</time>
+            </header>
+
+            <div class="post-content">
+                <p>Asynchronous programming is a fundamental concept in JavaScript. Let&#39;s explore the evolution from callbacks to promises to async/await.</p>
+<h2>Callbacks</h2>
+<p>The traditional way to handle async operations:</p>
+<pre><code class="language-javascript">function fetchData(callback) {
+  setTimeout(() =&gt; {
+    callback(null, { data: &quot;Hello&quot; });
+  }, 1000);
+}
+
+fetchData((err, result) =&gt; {
+  if (err) {
+    console.error(err);
+    return;
+  }
+  console.log(result);
+});
+</code></pre>
+<h3>Callback Hell</h3>
+<p>Nested callbacks can become hard to manage:</p>
+<pre><code class="language-javascript">fetchUser(userId, (err, user) =&gt; {
+  fetchOrders(user.id, (err, orders) =&gt; {
+    fetchOrderDetails(orders[0].id, (err, details) =&gt; {
+      // This gets messy fast!
+    });
+  });
+});
+</code></pre>
+<h2>Promises</h2>
+<p>Promises provide a cleaner way to handle async operations:</p>
+<pre><code class="language-javascript">function fetchData() {
+  return new Promise((resolve, reject) =&gt; {
+    setTimeout(() =&gt; {
+      resolve({ data: &quot;Hello&quot; });
+    }, 1000);
+  });
+}
+
+fetchData()
+  .then((result) =&gt; console.log(result))
+  .catch((err) =&gt; console.error(err));
+</code></pre>
+<h3>Promise Chaining</h3>
+<pre><code class="language-javascript">fetchUser(userId)
+  .then((user) =&gt; fetchOrders(user.id))
+  .then((orders) =&gt; fetchOrderDetails(orders[0].id))
+  .then((details) =&gt; console.log(details))
+  .catch((err) =&gt; console.error(err));
+</code></pre>
+<h2>Async/Await</h2>
+<p>The modern way to write async code that looks synchronous:</p>
+<pre><code class="language-javascript">async function getData() {
+  try {
+    const user = await fetchUser(userId);
+    const orders = await fetchOrders(user.id);
+    const details = await fetchOrderDetails(orders[0].id);
+    console.log(details);
+  } catch (err) {
+    console.error(err);
+  }
+}
+</code></pre>
+<h2>Parallel Execution</h2>
+<p>Use <code>Promise.all</code> for parallel operations:</p>
+<pre><code class="language-javascript">async function fetchAllData() {
+  const [users, products, orders] = await Promise.all([
+    fetchUsers(),
+    fetchProducts(),
+    fetchOrders(),
+  ]);
+
+  return { users, products, orders };
+}
+</code></pre>
+<h2>Conclusion</h2>
+<p>Each pattern has its place. Use async/await for most cases, but understand promises and callbacks as they&#39;re still widely used in libraries and APIs.</p>
+
+            </div>
+        </article>
+
+        <footer class="site-footer">
+            <p>&copy; 2026 samzhang. All rights reserved.</p>
+        </footer>
+    </main>
+    <script src="../theme.js"></script>
+</body>
+</html>

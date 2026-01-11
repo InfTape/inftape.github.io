@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Getting Started with Rust - A comprehensive guide for beginners">
+    <title>Getting Started with Rust - InfTape</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Inter:wght@400;500&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../post.css">
+</head>
+
+<body>
+    <main class="container">
+        <nav class="breadcrumb">
+            <a href="../index.html">← Back to home</a>
+        </nav>
+
+        <article class="post">
+            <header class="post-header">
+                <h1 class="post-title">Getting Started with Rust: A Beginner's Guide</h1>
+                <time class="post-meta">2026-01-10</time>
+            </header>
+
+            <div class="post-content">
+                <p>Rust is a systems programming language that runs blazingly fast, prevents segfaults, and guarantees
+                    thread safety. In this article, I'll share my experience getting started with Rust and some tips for
+                    beginners.</p>
+
+                <h2>Why Rust?</h2>
+                <p>After years of working with C and C++, I was looking for a language that could offer:</p>
+                <ul>
+                    <li>Memory safety without garbage collection</li>
+                    <li>Concurrency without data races</li>
+                    <li>Zero-cost abstractions</li>
+                    <li>A modern type system</li>
+                </ul>
+
+                <p>Rust delivers on all of these promises, and more. The learning curve is steep, but the payoff is
+                    worth it.</p>
+
+                <h2>Installing Rust</h2>
+                <p>The easiest way to install Rust is through <code>rustup</code>, the official Rust toolchain
+                    installer:</p>
+
+                <pre><code>curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh</code></pre>
+
+                <p>After installation, you can verify your setup:</p>
+
+                <pre><code>rustc --version
+cargo --version</code></pre>
+
+                <h2>Your First Rust Program</h2>
+                <p>Let's create the classic "Hello, World!" program. Create a new project with Cargo:</p>
+
+                <pre><code>cargo new hello_world
+cd hello_world</code></pre>
+
+                <p>Open <code>src/main.rs</code> and you'll see:</p>
+
+                <pre><code>fn main() {
+    println!("Hello, world!");
+}</code></pre>
+
+                <p>Run it with <code>cargo run</code>. Congratulations, you've written your first Rust program!</p>
+
+                <h2>Understanding Ownership</h2>
+                <p>Rust's ownership system is its most unique feature. Every value has a single owner, and when the
+                    owner goes out of scope, the value is dropped. This eliminates memory leaks and dangling pointers at
+                    compile time.</p>
+
+                <pre><code>fn main() {
+    let s1 = String::from("hello");
+    let s2 = s1; // s1 is moved to s2
+    
+    // println!("{}", s1); // Error: s1 is no longer valid
+    println!("{}", s2); // This works!
+}</code></pre>
+
+                <h2>What's Next?</h2>
+                <p>In future posts, I'll explore more Rust concepts including:</p>
+                <ul>
+                    <li>Borrowing and references</li>
+                    <li>Structs and enums</li>
+                    <li>Error handling with Result and Option</li>
+                    <li>Traits and generics</li>
+                </ul>
+
+                <p>Stay tuned, and happy coding!</p>
+            </div>
+        </article>
+
+        <footer class="site-footer">
+            <p>&copy; 2026 InfTape. All rights reserved.</p>
+        </footer>
+    </main>
+    <script src="../theme.js"></script>
+</body>
+
+</html>
