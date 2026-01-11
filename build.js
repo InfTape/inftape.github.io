@@ -73,7 +73,7 @@ function generatePostHTML(post) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="${post.description || post.title}">
-    <title>${post.title} - samzhang</title>
+    <title>${post.title} - InfTape</title>
     <link rel="stylesheet" href="../../style.css">
     <link rel="stylesheet" href="${KATEX_CSS}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -99,7 +99,7 @@ function generatePostHTML(post) {
         </article>
 
         <footer class="site-footer">
-            <p>&copy; 2026 samzhang. All rights reserved.</p>
+            <p>&copy; 2026 InfTape. All rights reserved.</p>
         </footer>
     </main>
     <script src="../../theme.js"></script>
@@ -122,7 +122,7 @@ function generateIndexHTML(posts) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Sam的个人博客 - 记录生活与技术的点滴">
-    <title>samzhang</title>
+    <title>InfTape</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -132,7 +132,7 @@ function generateIndexHTML(posts) {
     <main class="container">
         <header class="site-header">
             <div class="header-top">
-                <h1 class="site-title">samzhang</h1>
+                <h1 class="site-title">InfTape</h1>
                 <nav class="site-nav">
                     <a href="about/">About</a>
                     <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
@@ -185,7 +185,7 @@ function generateIndexHTML(posts) {
         </section>
 
         <footer class="site-footer">
-            <p>&copy; 2026 samzhang. All rights reserved.</p>
+            <p>&copy; 2026 InfTape. All rights reserved.</p>
         </footer>
     </main>
     <script src="theme.js"></script>
@@ -228,8 +228,8 @@ function generateArchiveHTML(posts) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="文章归档 - samzhang的博客">
-    <title>Archive - samzhang</title>
+    <meta name="description" content="文章归档 - InfTape的博客">
+    <title>Archive - InfTape</title>
     <link rel="stylesheet" href="../style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -247,7 +247,7 @@ function generateArchiveHTML(posts) {
 ${sectionsHTML}
 
         <footer class="site-footer">
-            <p>&copy; 2026 samzhang. All rights reserved.</p>
+            <p>&copy; 2026 InfTape. All rights reserved.</p>
         </footer>
     </main>
     <script src="../theme.js"></script>
