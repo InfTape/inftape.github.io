@@ -1,3 +1,6 @@
+/* Latin Modern Roman font for LaTeX-style typography */
+@import url('https://cdn.jsdelivr.net/gh/edwardtufte/et-book@gh-pages/et-book/fonts/Latin-Modern-Roman/latin-modern-roman.css');
+
 /* Reset and Base Styles */
 *, *::before, *::after {
     margin: 0;
@@ -14,8 +17,9 @@
     --color-bg: #fff;
     --color-code-bg: #f5f5f5;
     --color-item-border: #eee;
-    --font-serif: 'Noto Serif SC', 'Georgia', 'Times New Roman', serif;
+    --font-serif: 'Latin Modern Roman', 'STIX Two Text', 'Georgia', 'Times New Roman', serif;
     --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     --max-width: 800px;
     --spacing-unit: 1rem;
 }
@@ -43,11 +47,22 @@ html {
 }
 
 body {
-    font-family: var(--font-sans);
+    font-family: var(--font-serif);
     color: var(--color-text);
     background-color: var(--color-bg);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* KaTeX protection - prevent global font override */
+.katex {
+    font-family: KaTeX_Main, "Times New Roman", serif;
+}
+
+/* Monospace for code */
+code, pre {
+    font-family: var(--font-mono);
 }
 
 /* Container */
