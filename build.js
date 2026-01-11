@@ -134,7 +134,7 @@ function generateIndexHTML(posts) {
             <div class="header-top">
                 <h1 class="site-title">samzhang</h1>
                 <nav class="site-nav">
-                    <a href="about.html">About</a>
+                    <a href="about/">About</a>
                     <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
                         <span class="icon-sun">☀️</span>
                         <span class="icon-moon">🌙</span>
@@ -148,7 +148,7 @@ function generateIndexHTML(posts) {
             <h2 class="section-title">Recent posts</h2>
             <ul class="post-list">${postListHTML}
             </ul>
-            <a href="archive.html" class="more-link">More···</a>
+            <a href="archive/" class="more-link">More···</a>
         </section>
 
         <section class="section">
@@ -230,7 +230,7 @@ function generateArchiveHTML(posts) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="文章归档 - samzhang的博客">
     <title>Archive - samzhang</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
@@ -238,7 +238,7 @@ function generateArchiveHTML(posts) {
 <body>
     <main class="container">
         <nav class="breadcrumb" style="margin-bottom: 2rem;">
-            <a href="index.html" style="color: var(--color-text-secondary); text-decoration: none; font-size: 0.9rem;">← Back to home</a>
+            <a href="../" style="color: var(--color-text-secondary); text-decoration: none; font-size: 0.9rem;">← Back to home</a>
         </nav>
 
         <header class="page-header" style="margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--color-border);">
@@ -250,7 +250,7 @@ ${sectionsHTML}
             <p>&copy; 2026 samzhang. All rights reserved.</p>
         </footer>
     </main>
-    <script src="theme.js"></script>
+    <script src="../theme.js"></script>
 </body>
 </html>
 `;
@@ -339,8 +339,11 @@ function build() {
 
     // Generate archive page
     const archiveHTML = generateArchiveHTML(posts);
-    fs.writeFileSync('archive.html', archiveHTML);
-    console.log('✅ Generated: archive.html');
+    if (!fs.existsSync('archive')) {
+        fs.mkdirSync('archive', { recursive: true });
+    }
+    fs.writeFileSync('archive/index.html', archiveHTML);
+    console.log('✅ Generated: archive/index.html');
 
     console.log(`\n🎉 Build complete! ${posts.length} post(s) generated.`);
     console.log('📐 KaTeX math rendering enabled.');
