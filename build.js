@@ -211,7 +211,7 @@ function generateArchiveHTML(posts) {
     const sectionsHTML = years.map(year => {
         const postsHTML = postsByYear[year].map(post => `
                 <li class="post-item">
-                    <a href="posts/${post.slug}/" class="post-link">${post.title}</a>
+                    <a href="../posts/${post.slug}/" class="post-link">${post.title}</a>
                     <time class="post-date">${post.date}</time>
                 </li>`).join('');
         
