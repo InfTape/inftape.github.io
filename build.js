@@ -74,17 +74,17 @@ function generatePostHTML(post) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="${post.description || post.title}">
     <title>${post.title} - samzhang</title>
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../../style.css">
     <link rel="stylesheet" href="${KATEX_CSS}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Inter:wght@400;500&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../post.css">
+    <link rel="stylesheet" href="../../post.css">
 </head>
 <body>
     <main class="container">
         <nav class="breadcrumb">
-            <a href="../index.html">← Back to home</a>
+            <a href="../../">← Back to home</a>
         </nav>
 
         <article class="post">
@@ -102,7 +102,7 @@ function generatePostHTML(post) {
             <p>&copy; 2026 samzhang. All rights reserved.</p>
         </footer>
     </main>
-    <script src="../theme.js"></script>
+    <script src="../../theme.js"></script>
 </body>
 </html>`;
 }
@@ -112,7 +112,7 @@ function generateIndexHTML(posts) {
     const recentPosts = posts.slice(0, 5);
     const postListHTML = recentPosts.map(post => `
                 <li class="post-item">
-                    <a href="posts/${post.slug}.html" class="post-link">${post.title}</a>
+                    <a href="posts/${post.slug}/" class="post-link">${post.title}</a>
                     <time class="post-date">${post.date}</time>
                 </li>`).join('');
 
@@ -211,7 +211,7 @@ function generateArchiveHTML(posts) {
     const sectionsHTML = years.map(year => {
         const postsHTML = postsByYear[year].map(post => `
                 <li class="post-item">
-                    <a href="posts/${post.slug}.html" class="post-link">${post.title}</a>
+                    <a href="posts/${post.slug}/" class="post-link">${post.title}</a>
                     <time class="post-date">${post.date}</time>
                 </li>`).join('');
         
@@ -323,7 +323,11 @@ function build() {
     // Generate individual post pages
     posts.forEach(post => {
         const html = generatePostHTML(post);
-        const outputPath = path.join(OUTPUT_DIR, `${post.slug}.html`);
+        const postDir = path.join(OUTPUT_DIR, post.slug);
+        if (!fs.existsSync(postDir)) {
+            fs.mkdirSync(postDir, { recursive: true });
+        }
+        const outputPath = path.join(postDir, 'index.html');
         fs.writeFileSync(outputPath, html);
         console.log(`✅ Generated: ${outputPath}`);
     });
