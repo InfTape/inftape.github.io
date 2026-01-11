@@ -290,3 +290,13 @@ a:focus-visible {
     outline: 2px solid var(--color-link);
     outline-offset: 2px;
 }
+
+/* KaTeX block math: horizontal scroll on small screens */
+.katex-display {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch; /* iOS 顺滑滚动 */
+  padding-bottom: 0.4rem;            /* 防止滚动条压住公式 */
+}
