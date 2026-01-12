@@ -16,14 +16,35 @@
   --color-bg: #fff;
   --color-code-bg: #f5f5f5;
   --color-item-border: #eee;
-  --font-serif: "Computer Modern Serif", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
+
+  /* 布局参数 */
   --max-width: 800px;
   --spacing-unit: 1rem;
+
+  /* 1. 衬线体 (Serif)
+     保留 Computer Modern (英) -> 回退到系统衬线 (中/英)
+  */
+  --font-serif: "Computer Modern Serif",
+    /* 唯一保留的自定义字体 */ "Times New Roman",
+    /* Windows/Mac 通用经典衬线 */ "Songti SC",
+    /* macOS 中文 (宋体-简) */ "SimSun", /* Windows 中文 (中易宋体) */ serif; /* 最终兜底 */
+
+  /* 2. 无衬线体 (Sans-serif)
+     纯系统字体栈：Mac 优先用 SF，Win 优先用 Segoe UI
+  */
+  --font-sans: -apple-system, BlinkMacSystemFont, /* macOS / iOS */ "Segoe UI",
+    /* Windows */ Roboto, /* Android */ "Helvetica Neue", Helvetica, Arial,
+    /* 通用旧版 */ "PingFang SC", /* macOS 中文 (苹方) */ "Hiragino Sans GB",
+    /* macOS 中文 (冬青黑) */ "Microsoft YaHei",
+    /* Windows 中文 (微软雅黑) */ sans-serif; /* 最终兜底 */
+
+  /* 3. 等宽字体 (Monospace)
+     纯系统字体栈：Mac 优先 SF Mono，Win 优先 Consolas
+  */
+  --font-mono: ui-monospace, /* macOS 新标准 */ SFMono-Regular,
+    /* macOS 旧标准 */ Menlo, Monaco, /* macOS 经典 */ Consolas,
+    /* Windows 经典 */ "Liberation Mono", /* Linux */ "Courier New",
+    /* 通用 */ monospace; /* 最终兜底 */
 }
 
 /* Dark Mode */
