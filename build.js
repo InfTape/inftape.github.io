@@ -78,9 +78,6 @@ function generatePostHTML(post) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/InfTape/computer-modern-web-font@master/fonts.css">
     <link rel="stylesheet" href="../../style.css">
     <link rel="stylesheet" href="${KATEX_CSS}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Inter:wght@400;500&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../post.css">
 </head>
 <body>
@@ -131,9 +128,7 @@ function generateIndexHTML(posts) {
     <title>InfTape</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/InfTape/computer-modern-web-font@master/fonts.css">
     <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
 </head>
 <body>
     <main class="container">
@@ -245,9 +240,7 @@ function generateArchiveHTML(posts) {
     <title>Archive - InfTape</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/InfTape/computer-modern-web-font@master/fonts.css">
     <link rel="stylesheet" href="../style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
 </head>
 <body>
     <main class="container">
@@ -256,7 +249,7 @@ function generateArchiveHTML(posts) {
         </nav>
 
         <header class="page-header" style="margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--color-border);">
-            <h1 style="font-family: 'Noto Serif SC', Georgia, serif; font-size: 2rem; font-weight: 400;">Archive</h1>
+            <h1 style="font-family: var(--font-serif); font-size: 2rem; font-weight: 400;">Archive</h1>
         </header>
 ${sectionsHTML}
 
