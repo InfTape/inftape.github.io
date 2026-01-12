@@ -75,7 +75,7 @@ function generatePostHTML(post) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="${post.description || post.title}">
     <title>${post.title} - InfTape</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/InfTape/computer-modern-web-font@master/fonts.css">
+    <link rel="stylesheet" href="../../assets/fonts/serif.css">
     <link rel="stylesheet" href="../../style.css">
     <link rel="stylesheet" href="${KATEX_CSS}">
     <link rel="stylesheet" href="../../post.css">
@@ -126,7 +126,7 @@ function generateIndexHTML(posts) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Sam的个人博客 - 记录生活与技术的点滴">
     <title>InfTape</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/InfTape/computer-modern-web-font@master/fonts.css">
+    <link rel="stylesheet" href="assets/fonts/serif.css">
     <link rel="stylesheet" href="style.css">
 
 </head>
@@ -238,7 +238,7 @@ function generateArchiveHTML(posts) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="文章归档 - InfTape的博客">
     <title>Archive - InfTape</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/InfTape/computer-modern-web-font@master/fonts.css">
+    <link rel="stylesheet" href="../assets/fonts/serif.css">
     <link rel="stylesheet" href="../style.css">
 
 </head>
