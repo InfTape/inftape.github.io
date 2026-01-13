@@ -1,59 +1,103 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="文章归档 - InfTape的博客">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="文章归档 - InfTape的博客" />
     <title>Archive - InfTape</title>
-    <link rel="stylesheet" href="../assets/fonts/serif.css">
-    <link rel="stylesheet" href="../style.css">
-
-</head>
-<body>
+    <script>
+      // Immediately set theme before any CSS loads to prevent flash
+      (function () {
+        var theme = localStorage.getItem("theme");
+        var prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        if (theme === "dark" || (!theme && prefersDark)) {
+          document.documentElement.setAttribute("data-theme", "dark");
+        }
+      })();
+    </script>
+    <link rel="stylesheet" href="../assets/fonts/serif.css" />
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body>
     <main class="container">
-        <nav class="breadcrumb" style="margin-bottom: 2rem;">
-            <a href="../" style="color: var(--color-text-secondary); text-decoration: none; font-size: 0.9rem;">← Back to home</a>
-        </nav>
+      <nav class="breadcrumb" style="margin-bottom: 2rem">
+        <a
+          href="../"
+          style="
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+          "
+          >← Back to home</a
+        >
+      </nav>
 
-        <header class="page-header" style="margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--color-border);">
-            <h1 style="font-family: var(--font-serif); font-size: 2rem; font-weight: 400;">Archive</h1>
-        </header>
+      <header
+        class="page-header"
+        style="
+          margin-bottom: 2rem;
+          padding-bottom: 1rem;
+          border-bottom: 1px solid var(--color-border);
+        "
+      >
+        <h1
+          style="
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            font-weight: 400;
+          "
+        >
+          Archive
+        </h1>
+      </header>
 
-        <section class="archive-section" style="margin-top: 2rem;">
-            <h2 class="section-title">2026</h2>
-            <ul class="post-list">
-                <li class="post-item">
-                    <a href="../posts/intro-to-algebraic-geometry/" class="post-link">Introduction to Algebraic Geometry</a>
-                    <time class="post-date">2026-01-11</time>
-                </li>
-                <li class="post-item">
-                    <a href="../posts/intro-to-linear-algebra/" class="post-link">Introduction to Linear Algebra</a>
-                    <time class="post-date">2026-01-11</time>
-                </li>
-                <li class="post-item">
-                    <a href="../posts/getting-started-with-rust/" class="post-link">Getting Started with Rust: A Beginner's Guide</a>
-                    <time class="post-date">2026-01-10</time>
-                </li>
-                <li class="post-item">
-                    <a href="../posts/understanding-css-grid/" class="post-link">Understanding CSS Grid Layout</a>
-                    <time class="post-date">2026-01-05</time>
-                </li>
-            </ul>
-        </section>
-        <section class="archive-section" style="margin-top: 2rem;">
-            <h2 class="section-title">2025</h2>
-            <ul class="post-list">
-                <li class="post-item">
-                    <a href="../posts/javascript-async-patterns/" class="post-link">JavaScript Async Patterns Explained</a>
-                    <time class="post-date">2025-12-28</time>
-                </li>
-            </ul>
-        </section>
+      <section class="archive-section" style="margin-top: 2rem">
+        <h2 class="section-title">2026</h2>
+        <ul class="post-list">
+          <li class="post-item">
+            <a href="../posts/intro-to-algebraic-geometry/" class="post-link"
+              >Introduction to Algebraic Geometry</a
+            >
+            <time class="post-date">2026-01-11</time>
+          </li>
+          <li class="post-item">
+            <a href="../posts/intro-to-linear-algebra/" class="post-link"
+              >Introduction to Linear Algebra</a
+            >
+            <time class="post-date">2026-01-11</time>
+          </li>
+          <li class="post-item">
+            <a href="../posts/getting-started-with-rust/" class="post-link"
+              >Getting Started with Rust: A Beginner's Guide</a
+            >
+            <time class="post-date">2026-01-10</time>
+          </li>
+          <li class="post-item">
+            <a href="../posts/understanding-css-grid/" class="post-link"
+              >Understanding CSS Grid Layout</a
+            >
+            <time class="post-date">2026-01-05</time>
+          </li>
+        </ul>
+      </section>
+      <section class="archive-section" style="margin-top: 2rem">
+        <h2 class="section-title">2025</h2>
+        <ul class="post-list">
+          <li class="post-item">
+            <a href="../posts/javascript-async-patterns/" class="post-link"
+              >JavaScript Async Patterns Explained</a
+            >
+            <time class="post-date">2025-12-28</time>
+          </li>
+        </ul>
+      </section>
 
-        <footer class="site-footer">
-            <p>&copy; 2026 InfTape. All rights reserved.</p>
-        </footer>
+      <footer class="site-footer">
+        <p>&copy; 2026 InfTape. All rights reserved.</p>
+      </footer>
     </main>
     <script src="../theme.js"></script>
-</body>
+  </body>
 </html>

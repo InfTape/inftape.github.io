@@ -66,6 +66,19 @@ function formatDate(date) {
 const KATEX_CSS =
   "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css";
 
+// Theme initialization script (inline to prevent flash)
+const THEME_INIT_SCRIPT = `
+    <script>
+        // Immediately set theme before any CSS loads to prevent flash
+        (function() {
+            var theme = localStorage.getItem('theme');
+            var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (theme === 'dark' || (!theme && prefersDark)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>`;
+
 // Post template
 function generatePostHTML(post) {
   return `<!DOCTYPE html>
@@ -74,7 +87,7 @@ function generatePostHTML(post) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="${post.description || post.title}">
-    <title>${post.title} - InfTape</title>
+    <title>${post.title} - InfTape</title>${THEME_INIT_SCRIPT}
     <link rel="stylesheet" href="../../assets/fonts/serif.css">
     <link rel="stylesheet" href="../../style.css">
     <link rel="stylesheet" href="${KATEX_CSS}">
@@ -125,10 +138,9 @@ function generateIndexHTML(posts) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Sam的个人博客 - 记录生活与技术的点滴">
-    <title>InfTape</title>
+    <title>InfTape</title>${THEME_INIT_SCRIPT}
     <link rel="stylesheet" href="assets/fonts/serif.css">
     <link rel="stylesheet" href="style.css">
-
 </head>
 <body>
     <main class="container">
@@ -237,10 +249,9 @@ function generateArchiveHTML(posts) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="文章归档 - InfTape的博客">
-    <title>Archive - InfTape</title>
+    <title>Archive - InfTape</title>${THEME_INIT_SCRIPT}
     <link rel="stylesheet" href="../assets/fonts/serif.css">
     <link rel="stylesheet" href="../style.css">
-
 </head>
 <body>
     <main class="container">
