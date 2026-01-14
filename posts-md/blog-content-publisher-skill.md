@@ -1,22 +1,24 @@
 ﻿---
 title: "Blog Content Publisher Skill"
 date: "2026-01-14"
-description: "A translated overview of the blog-content-publisher skill definition and workflow from a Chinese draft."
+description: "An English write-up of the blog-content-publisher skill.md definition and workflow from a Chinese draft."
 tags: ["workflow", "skills", "publishing", "automation"]
 ---
 
-This time I used a skill called `blog-content-publisher` to "publish posts." The goal is straightforward: translate the Chinese content I finish in the `drafts/` folder into English, format it, place it in `posts-md/`, trigger a build, generate the final static pages, open a local web server for preview, and then push to GitHub.
+This time I used a skill called `blog-content-publisher` to 'publish posts'. The goal is straightforward: translate the Chinese content I finish in the `drafts/` folder into English, format it, place it in `posts-md/`, trigger a build, generate the final static pages, open a local web server for preview, and then push to GitHub.
 
-For me, the biggest benefits are stability and convenience. I only need to hand over the content and the skill fills in `title`/`date`/`description`/`tags`, generates a Markdown file, and runs `npm run build` to output `posts/<slug>/index.html`.
+For me, the biggest benefits are stability and convenience. I only need to hand over the content and the skill fills in `title`/`date`/`description`/`tags`, translates, formats the Markdown file, and runs `npm run build` to output `posts/<slug>/index.html`.
 
-I like this structured workflow. Below is the skill I wrote.
+I like this structured workflow. Below is the `SKILL.md` I wrote.
 
+```
 ---
 
 name: `blog-content-publisher`
 description: Translate Chinese blog drafts to English. When users write a Simplified Chinese draft in `drafts/*.md` (filename not fixed), translate it to English, rename it by theme, move it to `posts-md/`, format in Markdown, then build and start a local server on port `8000` if it is not already running.
 
 ---
+```
 
 ## Blog Content Publisher
 
