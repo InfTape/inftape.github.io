@@ -26,3 +26,7 @@ blog-content-publisher.skill
 # Draft posts
 drafts/
 AGENTS.md
+opencode.json
+
+# Build cache (incremental build)
+.build-cache.json

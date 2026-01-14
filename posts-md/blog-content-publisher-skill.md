@@ -23,8 +23,6 @@ description: Translate Chinese blog drafts to English. When users write a Simpli
 
 Translate the latest Chinese draft in `drafts/` into English, generate compliant front matter and body content, rename the file, move it into `posts-md/`, run the build, and start a local web server.
 
-### Workflow
-
 1. Find the most recently modified Chinese `.md` draft in `drafts/` (filename not fixed). If multiple candidates exist, only process the latest and mention that in the output.
 2. Parse the Chinese draft and generate English content:
    - Keep only the English body; do not retain the Chinese body.

@@ -1,39 +1,39 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Understanding callbacks, promises, and async/await in JavaScript">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Understanding callbacks, promises, and async/await in JavaScript" />
     <title>JavaScript Async Patterns Explained - InfTape</title>
     <script>
-        // Immediately set theme before any CSS loads to prevent flash
-        (function() {
-            var theme = localStorage.getItem('theme');
-            var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            if (theme === 'dark' || (!theme && prefersDark)) {
-                document.documentElement.setAttribute('data-theme', 'dark');
-            }
-        })();
+      (function () {
+        var theme = localStorage.getItem("theme");
+        var prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        if (theme === "dark" || (!theme && prefersDark)) {
+          document.documentElement.setAttribute("data-theme", "dark");
+        }
+      })();
     </script>
-    <link rel="stylesheet" href="../../assets/fonts/serif.css">
-    <link rel="stylesheet" href="../../style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-    <link rel="stylesheet" href="../../post.css">
-</head>
-<body>
+    <link rel="stylesheet" href="../../assets/fonts/serif.css" />
+    <link rel="stylesheet" href="../../style.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+    <link rel="stylesheet" href="../../post.css" />
+  </head>
+  <body>
     <main class="container">
-        <nav class="breadcrumb">
-            <a href="../../">← Back to home</a>
-        </nav>
+      <nav class="breadcrumb">
+        <a href="../../">← Back to home</a>
+      </nav>
 
-        <article class="post">
-            <header class="post-header">
-                <h1 class="post-title">JavaScript Async Patterns Explained</h1>
-                <time class="post-meta">2025-12-28</time>
-            </header>
+      <article class="post">
+        <header class="post-header">
+          <h1 class="post-title">JavaScript Async Patterns Explained</h1>
+          <time class="post-meta">2025-12-28</time>
+        </header>
 
-            <div class="post-content">
-                <p>Asynchronous programming is a fundamental concept in JavaScript. Let&#39;s explore the evolution from callbacks to promises to async/await.</p>
+        <div class="post-content"><p>Asynchronous programming is a fundamental concept in JavaScript. Let&#39;s explore the evolution from callbacks to promises to async/await.</p>
 <h2>Callbacks</h2>
 <p>The traditional way to handle async operations:</p>
 <pre><code class="language-javascript">function fetchData(callback) {
@@ -108,14 +108,13 @@ fetchData()
 </code></pre>
 <h2>Conclusion</h2>
 <p>Each pattern has its place. Use async/await for most cases, but understand promises and callbacks as they&#39;re still widely used in libraries and APIs.</p>
+</div>
+      </article>
 
-            </div>
-        </article>
-
-        <footer class="site-footer">
-            <p>&copy; 2026 InfTape. All rights reserved.</p>
-        </footer>
+      <footer class="site-footer">
+        <p>&copy; 2026 InfTape. All rights reserved.</p>
+      </footer>
     </main>
     <script src="../../theme.js"></script>
-</body>
+  </body>
 </html>

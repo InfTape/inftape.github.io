@@ -1,17 +1,41 @@
 const fs = require("fs");
 const path = require("path");
+const crypto = require("crypto");
 const { marked } = require("marked");
 const frontMatter = require("front-matter");
 const katex = require("katex");
+const ejs = require("ejs");
 
 // Configuration
 const POSTS_DIR = "./posts";
 const POSTS_MD_DIR = "./posts-md";
 const OUTPUT_DIR = "./posts";
+const CACHE_FILE = ".build-cache.json";
+const TEMPLATES_DIR = "./templates";
 
 // Ensure directories exist
 if (!fs.existsSync(POSTS_MD_DIR)) {
   fs.mkdirSync(POSTS_MD_DIR, { recursive: true });
+}
+
+// Cache utilities for incremental build
+function computeHash(content) {
+  return crypto.createHash("md5").update(content).digest("hex");
+}
+
+function loadCache() {
+  try {
+    if (fs.existsSync(CACHE_FILE)) {
+      return JSON.parse(fs.readFileSync(CACHE_FILE, "utf-8"));
+    }
+  } catch (e) {
+    console.warn("⚠️  Cache file corrupted, rebuilding from scratch.");
+  }
+  return { version: 1, posts: {} };
+}
+
+function saveCache(cache) {
+  fs.writeFileSync(CACHE_FILE, JSON.stringify(cache, null, 2));
 }
 
 // KaTeX rendering function
@@ -66,214 +90,6 @@ function formatDate(date) {
 const KATEX_CSS =
   "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css";
 
-// Theme initialization script (inline to prevent flash)
-const THEME_INIT_SCRIPT = `
-    <script>
-        // Immediately set theme before any CSS loads to prevent flash
-        (function() {
-            var theme = localStorage.getItem('theme');
-            var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            if (theme === 'dark' || (!theme && prefersDark)) {
-                document.documentElement.setAttribute('data-theme', 'dark');
-            }
-        })();
-    </script>`;
-
-// Post template
-function generatePostHTML(post) {
-  return `<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="${post.description || post.title}">
-    <title>${post.title} - InfTape</title>${THEME_INIT_SCRIPT}
-    <link rel="stylesheet" href="../../assets/fonts/serif.css">
-    <link rel="stylesheet" href="../../style.css">
-    <link rel="stylesheet" href="${KATEX_CSS}">
-    <link rel="stylesheet" href="../../post.css">
-</head>
-<body>
-    <main class="container">
-        <nav class="breadcrumb">
-            <a href="../../">← Back to home</a>
-        </nav>
-
-        <article class="post">
-            <header class="post-header">
-                <h1 class="post-title">${post.title}</h1>
-                <time class="post-meta">${post.date}</time>
-            </header>
-
-            <div class="post-content">
-                ${post.content}
-            </div>
-        </article>
-
-        <footer class="site-footer">
-            <p>&copy; 2026 InfTape. All rights reserved.</p>
-        </footer>
-    </main>
-    <script src="../../theme.js"></script>
-</body>
-</html>`;
-}
-
-// Generate index page with posts
-function generateIndexHTML(posts) {
-  const recentPosts = posts.slice(0, 5);
-  const postListHTML = recentPosts
-    .map(
-      (post) => `
-                <li class="post-item">
-                    <a href="posts/${post.slug}/" class="post-link">${post.title}</a>
-                    <time class="post-date">${post.date}</time>
-                </li>`
-    )
-    .join("");
-
-  return `<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Sam的个人博客 - 记录生活与技术的点滴">
-    <title>InfTape</title>${THEME_INIT_SCRIPT}
-    <link rel="stylesheet" href="assets/fonts/serif.css">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <main class="container">
-        <header class="site-header">
-            <div class="header-top">
-                <h1 class="site-title">InfTape</h1>
-                <nav class="site-nav">
-                    <a href="about/">About</a>
-                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-                        <span class="icon-sun">☀️</span>
-                        <span class="icon-moon">🌙</span>
-                    </button>
-                </nav>
-            </div>
-            <p class="site-tagline">a journey of code and life</p>
-        </header>
-
-        <section class="section">
-            <h2 class="section-title">Recent posts</h2>
-            <ul class="post-list">${postListHTML}
-            </ul>
-            <a href="archive/" class="more-link">More···</a>
-        </section>
-
-        <section class="section">
-            <h2 class="section-title">Projects</h2>
-            <ul class="project-list">
-                <li class="project-item">
-                    <a href="https://github.com/sam/awesome-tool" class="project-name">awesome-tool</a>: 
-                    <span class="project-desc">A collection of useful command-line utilities</span>
-                </li>
-                <li class="project-item">
-                    <a href="https://github.com/sam/mini-framework" class="project-name">mini-framework</a>: 
-                    <span class="project-desc">Lightweight JavaScript framework for building web apps</span>
-                </li>
-                <li class="project-item">
-                    <a href="https://github.com/sam/dotfiles" class="project-name">dotfiles</a>: 
-                    <span class="project-desc">Personal configuration files for development environment</span>
-                </li>
-            </ul>
-        </section>
-
-        <section class="section">
-            <h2 class="section-title">Links</h2>
-            <ul class="link-list">
-                <li class="link-item">
-                    GitHub: <a href="https://github.com/InfTape">@InfTape</a>
-                </li>
-                <li class="link-item">
-                    Twitter: <a href="https://twitter.com/InfTape">@InfTape</a>
-                </li>
-                <li class="link-item">
-                    Email: <a href="mailto:sam@inftape.com">sam@inftape.com</a>
-                </li>
-            </ul>
-        </section>
-
-        <footer class="site-footer">
-            <p>&copy; 2026 InfTape. All rights reserved.</p>
-        </footer>
-    </main>
-    <script src="theme.js"></script>
-</body>
-</html>
-`;
-}
-
-// Generate archive page
-function generateArchiveHTML(posts) {
-  // Group posts by year
-  const postsByYear = {};
-  posts.forEach((post) => {
-    const year = post.date.split("-")[0];
-    if (!postsByYear[year]) {
-      postsByYear[year] = [];
-    }
-    postsByYear[year].push(post);
-  });
-
-  const years = Object.keys(postsByYear).sort((a, b) => b - a);
-
-  const sectionsHTML = years
-    .map((year) => {
-      const postsHTML = postsByYear[year]
-        .map(
-          (post) => `
-                <li class="post-item">
-                    <a href="../posts/${post.slug}/" class="post-link">${post.title}</a>
-                    <time class="post-date">${post.date}</time>
-                </li>`
-        )
-        .join("");
-
-      return `
-        <section class="archive-section" style="margin-top: 2rem;">
-            <h2 class="section-title">${year}</h2>
-            <ul class="post-list">${postsHTML}
-            </ul>
-        </section>`;
-    })
-    .join("");
-
-  return `<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="文章归档 - InfTape的博客">
-    <title>Archive - InfTape</title>${THEME_INIT_SCRIPT}
-    <link rel="stylesheet" href="../assets/fonts/serif.css">
-    <link rel="stylesheet" href="../style.css">
-</head>
-<body>
-    <main class="container">
-        <nav class="breadcrumb" style="margin-bottom: 2rem;">
-            <a href="../" style="color: var(--color-text-secondary); text-decoration: none; font-size: 0.9rem;">← Back to home</a>
-        </nav>
-
-        <header class="page-header" style="margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--color-border);">
-            <h1 style="font-family: var(--font-serif); font-size: 2rem; font-weight: 400;">Archive</h1>
-        </header>
-${sectionsHTML}
-
-        <footer class="site-footer">
-            <p>&copy; 2026 InfTape. All rights reserved.</p>
-        </footer>
-    </main>
-    <script src="../theme.js"></script>
-</body>
-</html>
-`;
-}
-
 // Read all markdown files and parse them
 function readMarkdownPosts() {
   const posts = [];
@@ -289,6 +105,7 @@ function readMarkdownPosts() {
   files.forEach((file) => {
     const filePath = path.join(POSTS_MD_DIR, file);
     const content = fs.readFileSync(filePath, "utf-8");
+    const sourceHash = computeHash(content);
     const { attributes, body } = frontMatter(content);
 
     const slug = file.replace(".md", "");
@@ -299,6 +116,7 @@ function readMarkdownPosts() {
 
     posts.push({
       slug,
+      sourceHash,
       title: attributes.title || slug,
       date: formatDate(attributes.date),
       description: attributes.description || "",
@@ -313,8 +131,9 @@ function readMarkdownPosts() {
   return posts;
 }
 
-// Build all posts
-function build() {
+// Build all posts (with incremental build support)
+function build(forceRebuild = false) {
+  const startTime = Date.now();
   console.log("🚀 Building blog...\n");
 
   const posts = readMarkdownPosts();
@@ -333,14 +152,60 @@ function build() {
     return;
   }
 
+  // Load cache for incremental build
+  const cache = forceRebuild ? { version: 1, posts: {} } : loadCache();
+
+  // Determine which posts need rebuilding
+  const postsToRebuild = [];
+  const currentSlugs = new Set();
+
+  posts.forEach((post) => {
+    currentSlugs.add(post.slug);
+    const cached = cache.posts[post.slug];
+    if (!cached || cached.sourceHash !== post.sourceHash) {
+      postsToRebuild.push(post);
+    }
+  });
+
+  // Find deleted posts (in cache but not in current files)
+  const deletedSlugs = Object.keys(cache.posts).filter(
+    (slug) => !currentSlugs.has(slug)
+  );
+
+  // Clean up deleted posts
+  deletedSlugs.forEach((slug) => {
+    const postDir = path.join(OUTPUT_DIR, slug);
+    if (fs.existsSync(postDir)) {
+      fs.rmSync(postDir, { recursive: true });
+      console.log(`🗑️  Deleted: ${postDir}`);
+    }
+    delete cache.posts[slug];
+  });
+
+  // Check if any changes occurred
+  const hasChanges = postsToRebuild.length > 0 || deletedSlugs.length > 0;
+
+  if (!hasChanges && !forceRebuild) {
+    console.log("✨ No changes detected, skipping build.");
+    console.log(`   (${posts.length} post(s) up to date)`);
+    console.log(`   Use --force to rebuild all.\n`);
+    return;
+  }
+
   // Ensure posts directory exists
   if (!fs.existsSync(OUTPUT_DIR)) {
     fs.mkdirSync(OUTPUT_DIR, { recursive: true });
   }
 
-  // Generate individual post pages
-  posts.forEach((post) => {
-    const html = generatePostHTML(post);
+  // Generate only changed post pages
+  postsToRebuild.forEach((post) => {
+    const templatePath = path.join(TEMPLATES_DIR, "post.ejs");
+    const template = fs.readFileSync(templatePath, "utf-8");
+    const html = ejs.render(
+      template,
+      { post, katexCSS: KATEX_CSS },
+      { filename: templatePath }
+    );
     const postDir = path.join(OUTPUT_DIR, post.slug);
     if (!fs.existsSync(postDir)) {
       fs.mkdirSync(postDir, { recursive: true });
@@ -348,38 +213,80 @@ function build() {
     const outputPath = path.join(postDir, "index.html");
     fs.writeFileSync(outputPath, html);
     console.log(`✅ Generated: ${outputPath}`);
+
+    // Update cache for this post
+    cache.posts[post.slug] = { sourceHash: post.sourceHash };
   });
 
-  // Generate index page
-  const indexHTML = generateIndexHTML(posts);
-  fs.writeFileSync("index.html", indexHTML);
-  console.log("✅ Generated: index.html");
+  // Regenerate index and archive if any changes occurred
+  if (hasChanges || forceRebuild) {
+    // Generate index page
+    const recentPosts = posts.slice(0, 5);
+    const indexTemplatePath = path.join(TEMPLATES_DIR, "index.ejs");
+    const indexTemplate = fs.readFileSync(indexTemplatePath, "utf-8");
+    const indexHTML = ejs.render(
+      indexTemplate,
+      { recentPosts },
+      { filename: indexTemplatePath }
+    );
+    fs.writeFileSync("index.html", indexHTML);
+    console.log("✅ Generated: index.html");
 
-  // Generate archive page
-  const archiveHTML = generateArchiveHTML(posts);
-  if (!fs.existsSync("archive")) {
-    fs.mkdirSync("archive", { recursive: true });
+    // Generate archive page - group posts by year
+    const postsByYear = {};
+    posts.forEach((post) => {
+      const year = post.date.split("-")[0];
+      if (!postsByYear[year]) {
+        postsByYear[year] = [];
+      }
+      postsByYear[year].push(post);
+    });
+
+    const archiveTemplatePath = path.join(TEMPLATES_DIR, "archive.ejs");
+    const archiveTemplate = fs.readFileSync(archiveTemplatePath, "utf-8");
+    const archiveHTML = ejs.render(
+      archiveTemplate,
+      { postsByYear },
+      { filename: archiveTemplatePath }
+    );
+    if (!fs.existsSync("archive")) {
+      fs.mkdirSync("archive", { recursive: true });
+    }
+    fs.writeFileSync("archive/index.html", archiveHTML);
+    console.log("✅ Generated: archive/index.html");
   }
-  fs.writeFileSync("archive/index.html", archiveHTML);
-  console.log("✅ Generated: archive/index.html");
 
-  console.log(`\n🎉 Build complete! ${posts.length} post(s) generated.`);
+  // Save updated cache
+  saveCache(cache);
+
+  const duration = Date.now() - startTime;
+  console.log(`\n🎉 Build complete in ${duration}ms!`);
+  if (postsToRebuild.length < posts.length) {
+    console.log(
+      `   📊 Incremental: ${postsToRebuild.length}/${posts.length} post(s) rebuilt.`
+    );
+  } else {
+    console.log(`   📊 Full build: ${posts.length} post(s) generated.`);
+  }
   console.log("📐 KaTeX math rendering enabled.");
 }
+
+// Check for --force flag
+const forceRebuild = process.argv.includes("--force");
 
 // Watch mode
 if (process.argv.includes("--watch")) {
   const chokidar = require("chokidar");
 
   console.log("👀 Watching for changes in posts-md/...\n");
-  build();
+  build(forceRebuild);
 
   chokidar
     .watch(POSTS_MD_DIR, { ignoreInitial: true })
-    .on("all", (event, path) => {
-      console.log(`\n📝 ${event}: ${path}`);
-      build();
+    .on("all", (event, filePath) => {
+      console.log(`\n📝 ${event}: ${filePath}`);
+      build(false); // Incremental build on file change
     });
 } else {
-  build();
+  build(forceRebuild);
 }
