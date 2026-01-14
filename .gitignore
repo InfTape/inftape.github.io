@@ -21,3 +21,8 @@ Thumbs.db
 # - posts/*.html
 # - index.html
 # - archive.html
+blog-content-publisher.skill
+
+# Draft posts
+drafts/
+AGENTS.md

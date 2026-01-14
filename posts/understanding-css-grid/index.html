@@ -1,96 +1,68 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="A deep dive into CSS Grid and how to use it effectively"
-    />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A deep dive into CSS Grid and how to use it effectively">
     <title>Understanding CSS Grid Layout - InfTape</title>
     <script>
-      // Immediately set theme before any CSS loads to prevent flash
-      (function () {
-        var theme = localStorage.getItem("theme");
-        var prefersDark = window.matchMedia(
-          "(prefers-color-scheme: dark)"
-        ).matches;
-        if (theme === "dark" || (!theme && prefersDark)) {
-          document.documentElement.setAttribute("data-theme", "dark");
-        }
-      })();
+        // Immediately set theme before any CSS loads to prevent flash
+        (function() {
+            var theme = localStorage.getItem('theme');
+            var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (theme === 'dark' || (!theme && prefersDark)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
     </script>
-    <link rel="stylesheet" href="../../assets/fonts/serif.css" />
-    <link rel="stylesheet" href="../../style.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
-    />
-    <link rel="stylesheet" href="../../post.css" />
-  </head>
-  <body>
+    <link rel="stylesheet" href="../../assets/fonts/serif.css">
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <link rel="stylesheet" href="../../post.css">
+</head>
+<body>
     <main class="container">
-      <nav class="breadcrumb">
-        <a href="../../">← Back to home</a>
-      </nav>
+        <nav class="breadcrumb">
+            <a href="../../">← Back to home</a>
+        </nav>
 
-      <article class="post">
-        <header class="post-header">
-          <h1 class="post-title">Understanding CSS Grid Layout</h1>
-          <time class="post-meta">2026-01-05</time>
-        </header>
+        <article class="post">
+            <header class="post-header">
+                <h1 class="post-title">Understanding CSS Grid Layout</h1>
+                <time class="post-meta">2026-01-05</time>
+            </header>
 
-        <div class="post-content">
-          <p>
-            CSS Grid is a powerful layout system that allows you to create
-            complex two-dimensional layouts with ease. In this post, we&#39;ll
-            explore the fundamentals of CSS Grid and how to use it effectively.
-          </p>
-          <h2>What is CSS Grid?</h2>
-          <p>
-            CSS Grid Layout is a two-dimensional layout system designed for the
-            web. It lets you lay out items in rows and columns, making it easy
-            to design web pages without having to use floats and positioning.
-          </p>
-          <h2>Basic Concepts</h2>
-          <h3>Grid Container</h3>
-          <p>
-            To create a grid container, you simply set
-            <code>display: grid</code> on an element:
-          </p>
-          <pre><code class="language-css">.container {
+            <div class="post-content">
+                <p>CSS Grid is a powerful layout system that allows you to create complex two-dimensional layouts with ease. In this post, we&#39;ll explore the fundamentals of CSS Grid and how to use it effectively.</p>
+<h2>What is CSS Grid?</h2>
+<p>CSS Grid Layout is a two-dimensional layout system designed for the web. It lets you lay out items in rows and columns, making it easy to design web pages without having to use floats and positioning.</p>
+<h2>Basic Concepts</h2>
+<h3>Grid Container</h3>
+<p>To create a grid container, you simply set <code>display: grid</code> on an element:</p>
+<pre><code class="language-css">.container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 20px;
 }
 </code></pre>
-          <h3>Grid Items</h3>
-          <p>
-            All direct children of the grid container automatically become grid
-            items.
-          </p>
-          <pre><code class="language-html">&lt;div class=&quot;container&quot;&gt;
+<h3>Grid Items</h3>
+<p>All direct children of the grid container automatically become grid items.</p>
+<pre><code class="language-html">&lt;div class=&quot;container&quot;&gt;
   &lt;div class=&quot;item&quot;&gt;1&lt;/div&gt;
   &lt;div class=&quot;item&quot;&gt;2&lt;/div&gt;
   &lt;div class=&quot;item&quot;&gt;3&lt;/div&gt;
 &lt;/div&gt;
 </code></pre>
-          <h2>The <code>fr</code> Unit</h2>
-          <p>
-            The <code>fr</code> unit represents a fraction of the available
-            space in the grid container:
-          </p>
-          <pre><code class="language-css">.container {
+<h2>The <code>fr</code> Unit</h2>
+<p>The <code>fr</code> unit represents a fraction of the available space in the grid container:</p>
+<pre><code class="language-css">.container {
   grid-template-columns: 1fr 2fr 1fr;
 }
 </code></pre>
-          <p>
-            This creates three columns where the middle column is twice as wide
-            as the others.
-          </p>
-          <h2>Grid Areas</h2>
-          <p>You can name grid areas for more semantic layouts:</p>
-          <pre><code class="language-css">.container {
+<p>This creates three columns where the middle column is twice as wide as the others.</p>
+<h2>Grid Areas</h2>
+<p>You can name grid areas for more semantic layouts:</p>
+<pre><code class="language-css">.container {
   display: grid;
   grid-template-areas:
     &quot;header header header&quot;
@@ -111,31 +83,25 @@
   grid-area: footer;
 }
 </code></pre>
-          <h2>Responsive Grids</h2>
-          <p>CSS Grid makes responsive layouts incredibly easy:</p>
-          <pre><code class="language-css">.container {
+<h2>Responsive Grids</h2>
+<p>CSS Grid makes responsive layouts incredibly easy:</p>
+<pre><code class="language-css">.container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
 }
 </code></pre>
-          <p>
-            This creates a responsive grid that automatically adjusts the number
-            of columns based on the available space.
-          </p>
-          <h2>Conclusion</h2>
-          <p>
-            CSS Grid is an incredibly powerful tool for creating layouts.
-            Combined with Flexbox, you have everything you need to build modern,
-            responsive web designs.
-          </p>
-        </div>
-      </article>
+<p>This creates a responsive grid that automatically adjusts the number of columns based on the available space.</p>
+<h2>Conclusion</h2>
+<p>CSS Grid is an incredibly powerful tool for creating layouts. Combined with Flexbox, you have everything you need to build modern, responsive web designs.</p>
 
-      <footer class="site-footer">
-        <p>&copy; 2026 InfTape. All rights reserved.</p>
-      </footer>
+            </div>
+        </article>
+
+        <footer class="site-footer">
+            <p>&copy; 2026 InfTape. All rights reserved.</p>
+        </footer>
     </main>
     <script src="../../theme.js"></script>
-  </body>
+</body>
 </html>
