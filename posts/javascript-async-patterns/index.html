@@ -18,8 +18,12 @@
     </script>
     <link rel="stylesheet" href="../../assets/fonts/serif.css" />
     <link rel="stylesheet" href="../../style.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+    <link rel="stylesheet" href="../../assets/katex/katex.min.css" />
     <link rel="stylesheet" href="../../post.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css"
+    />
   </head>
   <body>
     <main class="container">
@@ -36,77 +40,71 @@
         <div class="post-content"><p>Asynchronous programming is a fundamental concept in JavaScript. Let&#39;s explore the evolution from callbacks to promises to async/await.</p>
 <h2>Callbacks</h2>
 <p>The traditional way to handle async operations:</p>
-<pre><code class="language-javascript">function fetchData(callback) {
-  setTimeout(() =&gt; {
-    callback(null, { data: &quot;Hello&quot; });
-  }, 1000);
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">fetchData</span>(<span class="hljs-params">callback</span>) {
+  <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">callback</span>(<span class="hljs-literal">null</span>, { <span class="hljs-attr">data</span>: <span class="hljs-string">&quot;Hello&quot;</span> });
+  }, <span class="hljs-number">1000</span>);
 }
 
-fetchData((err, result) =&gt; {
-  if (err) {
-    console.error(err);
-    return;
+<span class="hljs-title function_">fetchData</span>(<span class="hljs-function">(<span class="hljs-params">err, result</span>) =&gt;</span> {
+  <span class="hljs-keyword">if</span> (err) {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(err);
+    <span class="hljs-keyword">return</span>;
   }
-  console.log(result);
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(result);
 });
-</code></pre>
-<h3>Callback Hell</h3>
+</code></pre><h3>Callback Hell</h3>
 <p>Nested callbacks can become hard to manage:</p>
-<pre><code class="language-javascript">fetchUser(userId, (err, user) =&gt; {
-  fetchOrders(user.id, (err, orders) =&gt; {
-    fetchOrderDetails(orders[0].id, (err, details) =&gt; {
-      // This gets messy fast!
+<pre><code class="hljs language-javascript"><span class="hljs-title function_">fetchUser</span>(userId, <span class="hljs-function">(<span class="hljs-params">err, user</span>) =&gt;</span> {
+  <span class="hljs-title function_">fetchOrders</span>(user.<span class="hljs-property">id</span>, <span class="hljs-function">(<span class="hljs-params">err, orders</span>) =&gt;</span> {
+    <span class="hljs-title function_">fetchOrderDetails</span>(orders[<span class="hljs-number">0</span>].<span class="hljs-property">id</span>, <span class="hljs-function">(<span class="hljs-params">err, details</span>) =&gt;</span> {
+      <span class="hljs-comment">// This gets messy fast!</span>
     });
   });
 });
-</code></pre>
-<h2>Promises</h2>
+</code></pre><h2>Promises</h2>
 <p>Promises provide a cleaner way to handle async operations:</p>
-<pre><code class="language-javascript">function fetchData() {
-  return new Promise((resolve, reject) =&gt; {
-    setTimeout(() =&gt; {
-      resolve({ data: &quot;Hello&quot; });
-    }, 1000);
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">fetchData</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
+    <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> {
+      <span class="hljs-title function_">resolve</span>({ <span class="hljs-attr">data</span>: <span class="hljs-string">&quot;Hello&quot;</span> });
+    }, <span class="hljs-number">1000</span>);
   });
 }
 
-fetchData()
-  .then((result) =&gt; console.log(result))
-  .catch((err) =&gt; console.error(err));
-</code></pre>
-<h3>Promise Chaining</h3>
-<pre><code class="language-javascript">fetchUser(userId)
-  .then((user) =&gt; fetchOrders(user.id))
-  .then((orders) =&gt; fetchOrderDetails(orders[0].id))
-  .then((details) =&gt; console.log(details))
-  .catch((err) =&gt; console.error(err));
-</code></pre>
-<h2>Async/Await</h2>
+<span class="hljs-title function_">fetchData</span>()
+  .<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(result))
+  .<span class="hljs-title function_">catch</span>(<span class="hljs-function">(<span class="hljs-params">err</span>) =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(err));
+</code></pre><h3>Promise Chaining</h3>
+<pre><code class="hljs language-javascript"><span class="hljs-title function_">fetchUser</span>(userId)
+  .<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">user</span>) =&gt;</span> <span class="hljs-title function_">fetchOrders</span>(user.<span class="hljs-property">id</span>))
+  .<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">orders</span>) =&gt;</span> <span class="hljs-title function_">fetchOrderDetails</span>(orders[<span class="hljs-number">0</span>].<span class="hljs-property">id</span>))
+  .<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">details</span>) =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(details))
+  .<span class="hljs-title function_">catch</span>(<span class="hljs-function">(<span class="hljs-params">err</span>) =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(err));
+</code></pre><h2>Async/Await</h2>
 <p>The modern way to write async code that looks synchronous:</p>
-<pre><code class="language-javascript">async function getData() {
-  try {
-    const user = await fetchUser(userId);
-    const orders = await fetchOrders(user.id);
-    const details = await fetchOrderDetails(orders[0].id);
-    console.log(details);
-  } catch (err) {
-    console.error(err);
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">getData</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">const</span> user = <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetchUser</span>(userId);
+    <span class="hljs-keyword">const</span> orders = <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetchOrders</span>(user.<span class="hljs-property">id</span>);
+    <span class="hljs-keyword">const</span> details = <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetchOrderDetails</span>(orders[<span class="hljs-number">0</span>].<span class="hljs-property">id</span>);
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(details);
+  } <span class="hljs-keyword">catch</span> (err) {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(err);
   }
 }
-</code></pre>
-<h2>Parallel Execution</h2>
+</code></pre><h2>Parallel Execution</h2>
 <p>Use <code>Promise.all</code> for parallel operations:</p>
-<pre><code class="language-javascript">async function fetchAllData() {
-  const [users, products, orders] = await Promise.all([
-    fetchUsers(),
-    fetchProducts(),
-    fetchOrders(),
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">fetchAllData</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">const</span> [users, products, orders] = <span class="hljs-keyword">await</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">all</span>([
+    <span class="hljs-title function_">fetchUsers</span>(),
+    <span class="hljs-title function_">fetchProducts</span>(),
+    <span class="hljs-title function_">fetchOrders</span>(),
   ]);
 
-  return { users, products, orders };
+  <span class="hljs-keyword">return</span> { users, products, orders };
 }
-</code></pre>
-<h2>Conclusion</h2>
+</code></pre><h2>Conclusion</h2>
 <p>Each pattern has its place. Use async/await for most cases, but understand promises and callbacks as they&#39;re still widely used in libraries and APIs.</p>
 </div>
       </article>

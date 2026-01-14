@@ -18,8 +18,12 @@
     </script>
     <link rel="stylesheet" href="../../assets/fonts/serif.css" />
     <link rel="stylesheet" href="../../style.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+    <link rel="stylesheet" href="../../assets/katex/katex.min.css" />
     <link rel="stylesheet" href="../../post.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css"
+    />
   </head>
   <body>
     <main class="container">
@@ -39,59 +43,54 @@
 <h2>Basic Concepts</h2>
 <h3>Grid Container</h3>
 <p>To create a grid container, you simply set <code>display: grid</code> on an element:</p>
-<pre><code class="language-css">.container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 20px;
+<pre><code class="hljs language-css"><span class="hljs-selector-class">.container</span> {
+  <span class="hljs-attribute">display</span>: grid;
+  <span class="hljs-attribute">grid-template-columns</span>: <span class="hljs-number">1</span>fr <span class="hljs-number">1</span>fr <span class="hljs-number">1</span>fr;
+  <span class="hljs-attribute">gap</span>: <span class="hljs-number">20px</span>;
 }
-</code></pre>
-<h3>Grid Items</h3>
+</code></pre><h3>Grid Items</h3>
 <p>All direct children of the grid container automatically become grid items.</p>
-<pre><code class="language-html">&lt;div class=&quot;container&quot;&gt;
-  &lt;div class=&quot;item&quot;&gt;1&lt;/div&gt;
-  &lt;div class=&quot;item&quot;&gt;2&lt;/div&gt;
-  &lt;div class=&quot;item&quot;&gt;3&lt;/div&gt;
-&lt;/div&gt;
-</code></pre>
-<h2>The <code>fr</code> Unit</h2>
+<pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;container&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;item&quot;</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;item&quot;</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;item&quot;</span>&gt;</span>3<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</code></pre><h2>The <code>fr</code> Unit</h2>
 <p>The <code>fr</code> unit represents a fraction of the available space in the grid container:</p>
-<pre><code class="language-css">.container {
-  grid-template-columns: 1fr 2fr 1fr;
+<pre><code class="hljs language-css"><span class="hljs-selector-class">.container</span> {
+  <span class="hljs-attribute">grid-template-columns</span>: <span class="hljs-number">1</span>fr <span class="hljs-number">2</span>fr <span class="hljs-number">1</span>fr;
 }
-</code></pre>
-<p>This creates three columns where the middle column is twice as wide as the others.</p>
+</code></pre><p>This creates three columns where the middle column is twice as wide as the others.</p>
 <h2>Grid Areas</h2>
 <p>You can name grid areas for more semantic layouts:</p>
-<pre><code class="language-css">.container {
-  display: grid;
-  grid-template-areas:
-    &quot;header header header&quot;
-    &quot;sidebar main main&quot;
-    &quot;footer footer footer&quot;;
+<pre><code class="hljs language-css"><span class="hljs-selector-class">.container</span> {
+  <span class="hljs-attribute">display</span>: grid;
+  <span class="hljs-attribute">grid-template-areas</span>:
+    <span class="hljs-string">&quot;header header header&quot;</span>
+    <span class="hljs-string">&quot;sidebar main main&quot;</span>
+    <span class="hljs-string">&quot;footer footer footer&quot;</span>;
 }
 
-.header {
-  grid-area: header;
+<span class="hljs-selector-class">.header</span> {
+  <span class="hljs-attribute">grid-area</span>: header;
 }
-.sidebar {
-  grid-area: sidebar;
+<span class="hljs-selector-class">.sidebar</span> {
+  <span class="hljs-attribute">grid-area</span>: sidebar;
 }
-.main {
-  grid-area: main;
+<span class="hljs-selector-class">.main</span> {
+  <span class="hljs-attribute">grid-area</span>: main;
 }
-.footer {
-  grid-area: footer;
+<span class="hljs-selector-class">.footer</span> {
+  <span class="hljs-attribute">grid-area</span>: footer;
 }
-</code></pre>
-<h2>Responsive Grids</h2>
+</code></pre><h2>Responsive Grids</h2>
 <p>CSS Grid makes responsive layouts incredibly easy:</p>
-<pre><code class="language-css">.container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
+<pre><code class="hljs language-css"><span class="hljs-selector-class">.container</span> {
+  <span class="hljs-attribute">display</span>: grid;
+  <span class="hljs-attribute">grid-template-columns</span>: <span class="hljs-built_in">repeat</span>(auto-fit, <span class="hljs-built_in">minmax</span>(<span class="hljs-number">300px</span>, <span class="hljs-number">1</span>fr));
+  <span class="hljs-attribute">gap</span>: <span class="hljs-number">20px</span>;
 }
-</code></pre>
-<p>This creates a responsive grid that automatically adjusts the number of columns based on the available space.</p>
+</code></pre><p>This creates a responsive grid that automatically adjusts the number of columns based on the available space.</p>
 <h2>Conclusion</h2>
 <p>CSS Grid is an incredibly powerful tool for creating layouts. Combined with Flexbox, you have everything you need to build modern, responsive web designs.</p>
 </div>

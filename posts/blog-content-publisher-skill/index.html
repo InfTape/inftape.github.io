@@ -18,8 +18,12 @@
     </script>
     <link rel="stylesheet" href="../../assets/fonts/serif.css" />
     <link rel="stylesheet" href="../../style.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+    <link rel="stylesheet" href="../../assets/katex/katex.min.css" />
     <link rel="stylesheet" href="../../post.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css"
+    />
   </head>
   <body>
     <main class="container">
@@ -36,9 +40,9 @@
         <div class="post-content"><p>This time I used a skill called <code>blog-content-publisher</code> to &#39;publish posts&#39;. The goal is straightforward: translate the Chinese content I finish in the <code>drafts/</code> folder into English, format it, place it in <code>posts-md/</code>, trigger a build, generate the final static pages, open a local web server for preview, and then push to GitHub.</p>
 <p>For me, the biggest benefits are stability and convenience. I only need to hand over the content and the skill fills in <code>title</code>/<code>date</code>/<code>description</code>/<code>tags</code>, translates, formats the Markdown file, and runs <code>npm run build</code> to output <code>posts/&lt;slug&gt;/index.html</code>.</p>
 <p>I like this structured workflow. Below is the <code>SKILL.md</code> I wrote.</p>
-<pre><code class="language-markdown">---
+<pre><code class="hljs language-markdown">---
 name: blog-content-publisher
-description: Translate Chinese blog drafts to English. When users write a Simplified Chinese draft in `drafts/*.md` (filename not fixed), translate it to English, rename it by theme, move it to `posts-md/`, format in Markdown, then build and start a local server on port `8000` if it is not already running.
+<span class="hljs-section">description: Translate Chinese blog drafts to English. When users write a Simplified Chinese draft in `drafts/<span class="hljs-emphasis">*.md` (filename not fixed), translate it to English, rename it by theme, move it to `posts-md/`, format in Markdown, then build and start a local server on port `8000` if it is not already running.
 ---
 
 ## Blog Content Publisher
@@ -47,13 +51,11 @@ description: Translate Chinese blog drafts to English. When users write a Simpli
 
 Translate the latest Chinese draft in `drafts/` into English, generate compliant front matter and body content, rename the file, move it into `posts-md/`, run the build, and start a local web server.
 
-### Workflow
-
 1. Find the most recently modified Chinese `.md` draft in `drafts/` (filename not fixed). If multiple candidates exist, only process the latest and mention that in the output.
 2. Parse the Chinese draft and generate English content:
    - Keep only the English body; do not retain the Chinese body.
    - Auto-generate front matter: `title`/`date`/`description`/`tags`.
-3. Generate a slug from the English theme (lowercase + hyphens), then rename and move to `posts-md/&lt;slug&gt;.md`.
+3. Generate a slug from the English theme (lowercase + hyphens), then rename and move to `posts-md/<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">slug</span>&gt;</span></span>.md`.
 4. Normalize formatting:
    - Use `#`/`##` for headings.
    - Format lists and code blocks per Markdown conventions.
@@ -72,9 +74,8 @@ Translate the latest Chinese draft in `drafts/` into English, generate compliant
 Input: `drafts/我的新随笔.md` (Chinese content)
 Output:
 
-- `posts-md/my-new-essay.md` (English content)
-</code></pre>
-<p>Overall, this skill bridges the gap between writing and publishing. I can focus on writing in Chinese without worrying about translation, formatting, or building, and the experience feels smooth and reliable.</p>
+- `posts-md/my-new-essay.md` (English content)</span></span>
+</code></pre><p>Overall, this skill bridges the gap between writing and publishing. I can focus on writing in Chinese without worrying about translation, formatting, or building, and the experience feels smooth and reliable.</p>
 </div>
       </article>
 

@@ -18,8 +18,12 @@
     </script>
     <link rel="stylesheet" href="../../assets/fonts/serif.css" />
     <link rel="stylesheet" href="../../style.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+    <link rel="stylesheet" href="../../assets/katex/katex.min.css" />
     <link rel="stylesheet" href="../../post.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css"
+    />
   </head>
   <body>
     <main class="container">
@@ -45,34 +49,29 @@
 <p>Rust delivers on all of these promises, and more. The learning curve is steep, but the payoff is worth it.</p>
 <h2>Installing Rust</h2>
 <p>The easiest way to install Rust is through <code>rustup</code>, the official Rust toolchain installer:</p>
-<pre><code class="language-bash">curl --proto &#39;=https&#39; --tlsv1.2 -sSf https://sh.rustup.rs | sh
-</code></pre>
-<p>After installation, you can verify your setup:</p>
-<pre><code class="language-bash">rustc --version
+<pre><code class="hljs language-bash">curl --proto <span class="hljs-string">&#x27;=https&#x27;</span> --tlsv1.2 -sSf https://sh.rustup.rs | sh
+</code></pre><p>After installation, you can verify your setup:</p>
+<pre><code class="hljs language-bash">rustc --version
 cargo --version
-</code></pre>
-<h2>Your First Rust Program</h2>
+</code></pre><h2>Your First Rust Program</h2>
 <p>Let&#39;s create the classic &quot;Hello, World!&quot; program. Create a new project with Cargo:</p>
-<pre><code class="language-bash">cargo new hello_world
-cd hello_world
-</code></pre>
-<p>Open <code>src/main.rs</code> and you&#39;ll see:</p>
-<pre><code class="language-rust">fn main() {
-    println!(&quot;Hello, world!&quot;);
+<pre><code class="hljs language-bash">cargo new hello_world
+<span class="hljs-built_in">cd</span> hello_world
+</code></pre><p>Open <code>src/main.rs</code> and you&#39;ll see:</p>
+<pre><code class="hljs language-rust"><span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() {
+    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Hello, world!&quot;</span>);
 }
-</code></pre>
-<p>Run it with <code>cargo run</code>. Congratulations, you&#39;ve written your first Rust program!</p>
+</code></pre><p>Run it with <code>cargo run</code>. Congratulations, you&#39;ve written your first Rust program!</p>
 <h2>Understanding Ownership</h2>
 <p>Rust&#39;s ownership system is its most unique feature. Every value has a single owner, and when the owner goes out of scope, the value is dropped. This eliminates memory leaks and dangling pointers at compile time.</p>
-<pre><code class="language-rust">fn main() {
-    let s1 = String::from(&quot;hello&quot;);
-    let s2 = s1; // s1 is moved to s2
+<pre><code class="hljs language-rust"><span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() {
+    <span class="hljs-keyword">let</span> <span class="hljs-variable">s1</span> = <span class="hljs-type">String</span>::<span class="hljs-title function_ invoke__">from</span>(<span class="hljs-string">&quot;hello&quot;</span>);
+    <span class="hljs-keyword">let</span> <span class="hljs-variable">s2</span> = s1; <span class="hljs-comment">// s1 is moved to s2</span>
 
-    // println!(&quot;{}&quot;, s1); // Error: s1 is no longer valid
-    println!(&quot;{}&quot;, s2); // This works!
+    <span class="hljs-comment">// println!(&quot;{}&quot;, s1); // Error: s1 is no longer valid</span>
+    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;{}&quot;</span>, s2); <span class="hljs-comment">// This works!</span>
 }
-</code></pre>
-<h2>What&#39;s Next?</h2>
+</code></pre><h2>What&#39;s Next?</h2>
 <p>In future posts, I&#39;ll explore more Rust concepts including:</p>
 <ul>
 <li>Borrowing and references</li>

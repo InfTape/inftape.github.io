@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>InfTape</title>
+    <link>https://inftape.com</link>
+    <description>Sam的个人博客 - 记录生活与技术的点滴</description>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 14 Jan 2026 04:50:02 GMT</lastBuildDate>
+    <atom:link href="https://inftape.com/feed.xml" rel="self" type="application/rss+xml"/>
+
+    <item>
+      <title><![CDATA[Blog Content Publisher Skill]]></title>
+      <link>https://inftape.com/posts/blog-content-publisher-skill/</link>
+      <guid>https://inftape.com/posts/blog-content-publisher-skill/</guid>
+      <pubDate>Wed, 14 Jan 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[An English write-up of the blog-content-publisher skill.md definition and workflow from a Chinese draft.]]></description>
+    </item>
+
+    <item>
+      <title><![CDATA[Introduction to Algebraic Geometry]]></title>
+      <link>https://inftape.com/posts/intro-to-algebraic-geometry/</link>
+      <guid>https://inftape.com/posts/intro-to-algebraic-geometry/</guid>
+      <pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[An introduction to the fundamental concepts of algebraic geometry]]></description>
+    </item>
+
+    <item>
+      <title><![CDATA[Introduction to Linear Algebra]]></title>
+      <link>https://inftape.com/posts/intro-to-linear-algebra/</link>
+      <guid>https://inftape.com/posts/intro-to-linear-algebra/</guid>
+      <pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[A gentle introduction to linear algebra concepts with mathematical notation]]></description>
+    </item>
+
+    <item>
+      <title><![CDATA[Getting Started with Rust: A Beginner&#39;s Guide]]></title>
+      <link>https://inftape.com/posts/getting-started-with-rust/</link>
+      <guid>https://inftape.com/posts/getting-started-with-rust/</guid>
+      <pubDate>Sat, 10 Jan 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[A comprehensive guide to getting started with Rust programming language]]></description>
+    </item>
+
+    <item>
+      <title><![CDATA[Understanding CSS Grid Layout]]></title>
+      <link>https://inftape.com/posts/understanding-css-grid/</link>
+      <guid>https://inftape.com/posts/understanding-css-grid/</guid>
+      <pubDate>Mon, 05 Jan 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[A deep dive into CSS Grid and how to use it effectively]]></description>
+    </item>
+
+    <item>
+      <title><![CDATA[JavaScript Async Patterns Explained]]></title>
+      <link>https://inftape.com/posts/javascript-async-patterns/</link>
+      <guid>https://inftape.com/posts/javascript-async-patterns/</guid>
+      <pubDate>Sun, 28 Dec 2025 00:00:00 GMT</pubDate>
+      <description><![CDATA[Understanding callbacks, promises, and async/await in JavaScript]]></description>
+    </item>
+
+  </channel>
+</rss>

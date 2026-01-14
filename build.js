@@ -5,6 +5,7 @@ const { marked } = require("marked");
 const frontMatter = require("front-matter");
 const katex = require("katex");
 const ejs = require("ejs");
+const hljs = require("highlight.js");
 
 // Configuration
 const POSTS_DIR = "./posts";
@@ -12,6 +13,14 @@ const POSTS_MD_DIR = "./posts-md";
 const OUTPUT_DIR = "./posts";
 const CACHE_FILE = ".build-cache.json";
 const TEMPLATES_DIR = "./templates";
+
+// Site configuration for feeds
+const SITE_CONFIG = {
+  url: "https://inftape.com",
+  title: "InfTape",
+  description: "Sam的个人博客 - 记录生活与技术的点滴",
+  author: "Sam",
+};
 
 // Ensure directories exist
 if (!fs.existsSync(POSTS_MD_DIR)) {
@@ -69,7 +78,21 @@ function renderKaTeX(content) {
   return content;
 }
 
-// Configure marked for better code highlighting
+// Configure marked with syntax highlighting (using marked-highlight extension)
+const { markedHighlight } = require("marked-highlight");
+
+marked.use(
+  markedHighlight({
+    langPrefix: "hljs language-",
+    highlight(code, lang) {
+      if (lang && hljs.getLanguage(lang)) {
+        return hljs.highlight(code, { language: lang }).value;
+      }
+      return hljs.highlightAuto(code).value;
+    },
+  })
+);
+
 marked.setOptions({
   gfm: true,
   breaks: true,
@@ -86,9 +109,8 @@ function formatDate(date) {
   return new Date().toISOString().split("T")[0];
 }
 
-// Get KaTeX CSS path (use CDN for simplicity)
-const KATEX_CSS =
-  "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css";
+// Get KaTeX CSS path (local file)
+const KATEX_CSS = "../../assets/katex/katex.min.css";
 
 // Read all markdown files and parse them
 function readMarkdownPosts() {
@@ -254,6 +276,28 @@ function build(forceRebuild = false) {
     }
     fs.writeFileSync("archive/index.html", archiveHTML);
     console.log("✅ Generated: archive/index.html");
+
+    // Generate RSS feed
+    const feedTemplatePath = path.join(TEMPLATES_DIR, "feed.ejs");
+    const feedTemplate = fs.readFileSync(feedTemplatePath, "utf-8");
+    const feedXML = ejs.render(
+      feedTemplate,
+      { site: SITE_CONFIG, posts },
+      { filename: feedTemplatePath }
+    );
+    fs.writeFileSync("feed.xml", feedXML);
+    console.log("✅ Generated: feed.xml");
+
+    // Generate sitemap
+    const sitemapTemplatePath = path.join(TEMPLATES_DIR, "sitemap.ejs");
+    const sitemapTemplate = fs.readFileSync(sitemapTemplatePath, "utf-8");
+    const sitemapXML = ejs.render(
+      sitemapTemplate,
+      { site: SITE_CONFIG, posts },
+      { filename: sitemapTemplatePath }
+    );
+    fs.writeFileSync("sitemap.xml", sitemapXML);
+    console.log("✅ Generated: sitemap.xml");
   }
 
   // Save updated cache
@@ -290,3 +334,6 @@ if (process.argv.includes("--watch")) {
 } else {
   build(forceRebuild);
 }
+
+// Export functions for testing
+module.exports = { computeHash, formatDate, renderKaTeX };
