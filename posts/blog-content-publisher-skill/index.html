@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A translated overview of the blog-content-publisher skill definition and workflow from a Chinese draft.">
+    <meta name="description" content="An English write-up of the blog-content-publisher skill.md definition and workflow from a Chinese draft.">
     <title>Blog Content Publisher Skill - InfTape</title>
     <script>
         // Immediately set theme before any CSS loads to prevent flash
@@ -33,44 +33,47 @@
             </header>
 
             <div class="post-content">
-                <p>This time I used a skill called <code>blog-content-publisher</code> to &quot;publish posts.&quot; The goal is straightforward: translate the Chinese content I finish in the <code>drafts/</code> folder into English, format it, place it in <code>posts-md/</code>, trigger a build, generate the final static pages, open a local web server for preview, and then push to GitHub.</p>
-<p>For me, the biggest benefits are stability and convenience. I only need to hand over the content and the skill fills in <code>title</code>/<code>date</code>/<code>description</code>/<code>tags</code>, generates a Markdown file, and runs <code>npm run build</code> to output <code>posts/&lt;slug&gt;/index.html</code>.</p>
-<p>I like this structured workflow. Below is the skill I wrote.</p>
-<hr>
-<p>name: <code>blog-content-publisher</code><br>description: Translate Chinese blog drafts to English. When users write a Simplified Chinese draft in <code>drafts/*.md</code> (filename not fixed), translate it to English, rename it by theme, move it to <code>posts-md/</code>, format in Markdown, then build and start a local server on port <code>8000</code> if it is not already running.</p>
-<hr>
-<h2>Blog Content Publisher</h2>
-<h3>Overview</h3>
-<p>Translate the latest Chinese draft in <code>drafts/</code> into English, generate compliant front matter and body content, rename the file, move it into <code>posts-md/</code>, run the build, and start a local web server.</p>
-<h3>Workflow</h3>
-<ol>
-<li>Find the most recently modified Chinese <code>.md</code> draft in <code>drafts/</code> (filename not fixed). If multiple candidates exist, only process the latest and mention that in the output.</li>
-<li>Parse the Chinese draft and generate English content:<ul>
-<li>Keep only the English body; do not retain the Chinese body.</li>
-<li>Auto-generate front matter: <code>title</code>/<code>date</code>/<code>description</code>/<code>tags</code>.</li>
-</ul>
-</li>
-<li>Generate a slug from the English theme (lowercase + hyphens), then rename and move to <code>posts-md/&lt;slug&gt;.md</code>.</li>
-<li>Normalize formatting:<ul>
-<li>Use <code>#</code>/<code>##</code> for headings.</li>
-<li>Format lists and code blocks per Markdown conventions.</li>
-<li>Prefer backticks for commands, paths, or placeholders to improve readability.</li>
-</ul>
-</li>
-<li>Run <code>npm run build</code>.</li>
-<li>If local port <code>8000</code> is not listening, start <code>python -m http.server 8000</code> in the background; if it is running, do not start it again.</li>
-</ol>
-<h3>Constraints</h3>
-<ul>
-<li>Input: a Chinese <code>.md</code> draft under <code>drafts/</code>.</li>
-<li>Output: English-only <code>.md</code>, moved into <code>posts-md/</code>.</li>
-<li>File naming: English theme → slug (lowercase + hyphens).</li>
-</ul>
-<h3>Example</h3>
-<p>Input: <code>drafts/我的新随笔.md</code> (Chinese content)<br>Output:</p>
-<ul>
-<li><code>posts-md/my-new-essay.md</code> (English content)</li>
-</ul>
+                <p>This time I used a skill called <code>blog-content-publisher</code> to &#39;publish posts&#39;. The goal is straightforward: translate the Chinese content I finish in the <code>drafts/</code> folder into English, format it, place it in <code>posts-md/</code>, trigger a build, generate the final static pages, open a local web server for preview, and then push to GitHub.</p>
+<p>For me, the biggest benefits are stability and convenience. I only need to hand over the content and the skill fills in <code>title</code>/<code>date</code>/<code>description</code>/<code>tags</code>, translates, formats the Markdown file, and runs <code>npm run build</code> to output <code>posts/&lt;slug&gt;/index.html</code>.</p>
+<p>I like this structured workflow. Below is the <code>SKILL.md</code> I wrote.</p>
+<pre><code class="language-markdown">---
+name: blog-content-publisher
+description: Translate Chinese blog drafts to English. When users write a Simplified Chinese draft in `drafts/*.md` (filename not fixed), translate it to English, rename it by theme, move it to `posts-md/`, format in Markdown, then build and start a local server on port `8000` if it is not already running.
+---
+
+## Blog Content Publisher
+
+### Overview
+
+Translate the latest Chinese draft in `drafts/` into English, generate compliant front matter and body content, rename the file, move it into `posts-md/`, run the build, and start a local web server.
+
+### Workflow
+
+1. Find the most recently modified Chinese `.md` draft in `drafts/` (filename not fixed). If multiple candidates exist, only process the latest and mention that in the output.
+2. Parse the Chinese draft and generate English content:
+   - Keep only the English body; do not retain the Chinese body.
+   - Auto-generate front matter: `title`/`date`/`description`/`tags`.
+3. Generate a slug from the English theme (lowercase + hyphens), then rename and move to `posts-md/&lt;slug&gt;.md`.
+4. Normalize formatting:
+   - Use `#`/`##` for headings.
+   - Format lists and code blocks per Markdown conventions.
+   - Prefer backticks for commands, paths, or placeholders to improve readability.
+5. Run `npm run build`.
+6. If local port `8000` is not listening, start `python -m http.server 8000` in the background; if it is running, do not start it again.
+
+### Constraints
+
+- Input: a Chinese `.md` draft under `drafts/`.
+- Output: English-only `.md`, moved into `posts-md/`.
+- File naming: English theme → slug (lowercase + hyphens).
+
+### Example
+
+Input: `drafts/我的新随笔.md` (Chinese content)
+Output:
+
+- `posts-md/my-new-essay.md` (English content)
+</code></pre>
 <p>Overall, this skill bridges the gap between writing and publishing. I can focus on writing in Chinese without worrying about translation, formatting, or building, and the experience feels smooth and reliable.</p>
 
             </div>

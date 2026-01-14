@@ -11,14 +11,11 @@ For me, the biggest benefits are stability and convenience. I only need to hand 
 
 I like this structured workflow. Below is the `SKILL.md` I wrote.
 
-```
+```markdown
 ---
-
-name: `blog-content-publisher`
+name: blog-content-publisher
 description: Translate Chinese blog drafts to English. When users write a Simplified Chinese draft in `drafts/*.md` (filename not fixed), translate it to English, rename it by theme, move it to `posts-md/`, format in Markdown, then build and start a local server on port `8000` if it is not already running.
-
 ---
-```
 
 ## Blog Content Publisher
 
@@ -52,5 +49,6 @@ Input: `drafts/我的新随笔.md` (Chinese content)
 Output:
 
 - `posts-md/my-new-essay.md` (English content)
+```
 
 Overall, this skill bridges the gap between writing and publishing. I can focus on writing in Chinese without worrying about translation, formatting, or building, and the experience feels smooth and reliable.
