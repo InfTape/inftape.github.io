@@ -88,7 +88,7 @@ marked.use(
       if (lang && hljs.getLanguage(lang)) {
         return hljs.highlight(code, { language: lang }).value;
       }
-      return hljs.highlightAuto(code).value;
+      return code; // No auto-detection, return plain code
     },
   })
 );

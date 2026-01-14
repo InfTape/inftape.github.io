@@ -11,7 +11,7 @@ For me, the biggest benefits are stability and convenience. I only need to hand 
 
 I like this structured workflow. Below is the `SKILL.md` I wrote.
 
-```markdown
+```text
 ---
 name: blog-content-publisher
 description: Translate Chinese blog drafts to English. When users write a Simplified Chinese draft in `drafts/*.md` (filename not fixed), translate it to English, rename it by theme, move it to `posts-md/`, format in Markdown, then build and start a local server on port `8000` if it is not already running.
