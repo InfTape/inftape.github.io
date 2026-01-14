@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A translated overview of the blog-content-publisher skill definition and workflow from a Chinese draft.">
+    <title>Blog Content Publisher Skill - InfTape</title>
+    <script>
+        // Immediately set theme before any CSS loads to prevent flash
+        (function() {
+            var theme = localStorage.getItem('theme');
+            var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (theme === 'dark' || (!theme && prefersDark)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <link rel="stylesheet" href="../../assets/fonts/serif.css">
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <link rel="stylesheet" href="../../post.css">
+</head>
+<body>
+    <main class="container">
+        <nav class="breadcrumb">
+            <a href="../../">← Back to home</a>
+        </nav>
+
+        <article class="post">
+            <header class="post-header">
+                <h1 class="post-title">Blog Content Publisher Skill</h1>
+                <time class="post-meta">2026-01-14</time>
+            </header>
+
+            <div class="post-content">
+                <p>This time I used a skill called <code>blog-content-publisher</code> to &quot;publish posts.&quot; The goal is straightforward: translate the Chinese content I finish in the <code>drafts/</code> folder into English, format it, place it in <code>posts-md/</code>, trigger a build, generate the final static pages, open a local web server for preview, and then push to GitHub.</p>
+<p>For me, the biggest benefits are stability and convenience. I only need to hand over the content and the skill fills in <code>title</code>/<code>date</code>/<code>description</code>/<code>tags</code>, generates a Markdown file, and runs <code>npm run build</code> to output <code>posts/&lt;slug&gt;/index.html</code>.</p>
+<p>I like this structured workflow. Below is the skill I wrote.</p>
+<hr>
+<p>name: <code>blog-content-publisher</code><br>description: Translate Chinese blog drafts to English. When users write a Simplified Chinese draft in <code>drafts/*.md</code> (filename not fixed), translate it to English, rename it by theme, move it to <code>posts-md/</code>, format in Markdown, then build and start a local server on port <code>8000</code> if it is not already running.</p>
+<hr>
+<h1>Blog Content Publisher</h1>
+<h2>Overview</h2>
+<p>Translate the latest Chinese draft in <code>drafts/</code> into English, generate compliant front matter and body content, rename the file, move it into <code>posts-md/</code>, run the build, and start a local web server.</p>
+<h2>Workflow</h2>
+<ol>
+<li>Find the most recently modified Chinese <code>.md</code> draft in <code>drafts/</code> (filename not fixed). If multiple candidates exist, only process the latest and mention that in the output.</li>
+<li>Parse the Chinese draft and generate English content:<ul>
+<li>Keep only the English body; do not retain the Chinese body.</li>
+<li>Auto-generate front matter: <code>title</code>/<code>date</code>/<code>description</code>/<code>tags</code>.</li>
+</ul>
+</li>
+<li>Generate a slug from the English theme (lowercase + hyphens), then rename and move to <code>posts-md/&lt;slug&gt;.md</code>.</li>
+<li>Normalize formatting:<ul>
+<li>Use <code>#</code>/<code>##</code> for headings.</li>
+<li>Format lists and code blocks per Markdown conventions.</li>
+<li>Prefer backticks for commands, paths, or placeholders to improve readability.</li>
+</ul>
+</li>
+<li>Run <code>npm run build</code>.</li>
+<li>If local port <code>8000</code> is not listening, start <code>python -m http.server 8000</code> in the background; if it is running, do not start it again.</li>
+</ol>
+<h2>Constraints</h2>
+<ul>
+<li>Input: a Chinese <code>.md</code> draft under <code>drafts/</code>.</li>
+<li>Output: English-only <code>.md</code>, moved into <code>posts-md/</code>.</li>
+<li>File naming: English theme → slug (lowercase + hyphens).</li>
+</ul>
+<h2>Example</h2>
+<p>Input: <code>drafts/我的新随笔.md</code> (Chinese content)<br>Output:</p>
+<ul>
+<li><code>posts-md/my-new-essay.md</code> (English content)</li>
+</ul>
+<p>Overall, this skill bridges the gap between writing and publishing. I can focus on writing in Chinese without worrying about translation, formatting, or building, and the experience feels smooth and reliable.</p>
+
+            </div>
+        </article>
+
+        <footer class="site-footer">
+            <p>&copy; 2026 InfTape. All rights reserved.</p>
+        </footer>
+    </main>
+    <script src="../../theme.js"></script>
+</body>
+</html>
